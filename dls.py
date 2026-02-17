@@ -1,12 +1,11 @@
 from __future__ import annotations
-from typing import Dict, Optional, Set, Tuple, List
+from typing import Dict, List, Optional, Set, Tuple
 from .common import SearchResult
 
 Cell = Tuple[int, int]
 
 
 def dls(grid, start: Cell, goal: Cell, limit: int) -> SearchResult:
-    # stack stores (cell, depth)
     stack: List[Tuple[Cell, int]] = [(start, 0)]
     came_from: Dict[Cell, Optional[Cell]] = {start: None}
     explored_order: List[Cell] = []
