@@ -1,7 +1,7 @@
 from __future__ import annotations
 import numpy as np
 import matplotlib.pyplot as plt
-from typing import Set, Tuple, Optional
+from typing import Optional, Set, Tuple
 
 Cell = Tuple[int, int]
 
@@ -35,15 +35,12 @@ class Visualizer:
 
         for r, c in walls:
             grid[r, c] = 1
-
         for r, c in explored:
             if grid[r, c] == 0:
                 grid[r, c] = 3
-
         for r, c in frontier:
             if grid[r, c] == 0:
                 grid[r, c] = 2
-
         for r, c in path:
             if grid[r, c] == 0:
                 grid[r, c] = 4
@@ -61,11 +58,7 @@ class Visualizer:
 
         if self.im is None:
             self.im = self.ax.imshow(
-                grid,
-                cmap=self.cmap,
-                vmin=0,
-                vmax=7,
-                interpolation="nearest",
+                grid, cmap=self.cmap, vmin=0, vmax=7, interpolation="nearest"
             )
             self._setup_cell_gridlines()
         else:
