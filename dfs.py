@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Dict, Optional, Set, Tuple, List
+from typing import Dict, List, Optional, Set, Tuple
 from .common import SearchResult
 
 Cell = Tuple[int, int]
