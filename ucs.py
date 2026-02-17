@@ -1,6 +1,6 @@
 from __future__ import annotations
 import heapq
-from typing import Dict, Optional, Set, Tuple, List
+from typing import Dict, List, Optional, Set, Tuple
 from .common import SearchResult
 
 Cell = Tuple[int, int]
@@ -17,7 +17,6 @@ def ucs(grid, start: Cell, goal: Cell) -> SearchResult:
         frontier_history.append({cell for _, cell in heap})
         g, cur = heapq.heappop(heap)
 
-        # ignore outdated heap entries
         if g != best_g.get(cur, float("inf")):
             continue
 
