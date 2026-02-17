@@ -8,11 +8,11 @@ from visualizer import Visualizer
 
 from search.common import SearchResult, reconstruct_path
 from search.bfs import bfs
-from search.bidir import bidirectional
 from search.dfs import dfs
+from search.ucs import ucs
 from search.dls import dls
 from search.iddfs import iddfs
-from search.ucs import ucs
+from search.bidir import bidirectional
 
 Cell = Tuple[int, int]
 AlgoFn = Callable[[Grid, Cell, Cell], SearchResult]
@@ -29,9 +29,11 @@ ALGOS: Dict[str, Optional[AlgoFn]] = {
 
 def animate_planning(viz: Visualizer, grid: Grid, result: SearchResult, algo_name: str, agent: Cell) -> None:
     explored_set: Set[Cell] = set()
+
     for i, cur in enumerate(result.explored_order):
         explored_set.add(cur)
         frontier = result.frontier_history[i] if i < len(result.frontier_history) else set()
+
         viz.render(
             walls=grid.walls,
             frontier=frontier,
@@ -44,14 +46,34 @@ def animate_planning(viz: Visualizer, grid: Grid, result: SearchResult, algo_nam
         )
 
 
+def choose_algorithm() -> str:
+    print("\nChoose an algorithm to visualize:")
+    print("1) BFS")
+    print("2) DFS")
+    print("3) UCS")
+    print("4) DLS")
+    print("5) IDDFS")
+    print("6) Bidirectional")
+    choice = input("Enter number (1-6): ").strip()
+
+    mapping = {
+        "1": "bfs",
+        "2": "dfs",
+        "3": "ucs",
+        "4": "dls",
+        "5": "iddfs",
+        "6": "bidir",
+    }
+    return mapping.get(choice, "bfs")
+
+
 def main() -> None:
     random.seed(7)
     grid = demo_grid()
     viz = Visualizer(grid.rows, grid.cols, delay=0.03)
 
-    algo_name = "bfs"
+    algo_name = choose_algorithm()
     dls_limit = 25
-
     agent = grid.start
 
     try:
