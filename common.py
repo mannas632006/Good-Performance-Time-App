@@ -1,6 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Tuple, Set
+from typing import Dict, List, Optional, Set, Tuple
 
 Cell = Tuple[int, int]
 
@@ -10,7 +10,7 @@ class SearchResult:
     found: bool
     came_from: Dict[Cell, Optional[Cell]]
     explored_order: List[Cell]
-    frontier_history: List[Set[Cell]]  # snapshot each step
+    frontier_history: List[Set[Cell]]
 
 
 def reconstruct_path(came_from: Dict[Cell, Optional[Cell]], start: Cell, goal: Cell) -> List[Cell]:
@@ -25,7 +25,3 @@ def reconstruct_path(came_from: Dict[Cell, Optional[Cell]], start: Cell, goal: C
     if path and path[0] == start:
         return path
     return []
-
-
-def path_blocked(path: List[Cell], walls: Set[Cell]) -> bool:
-    return any(cell in walls for cell in path)
